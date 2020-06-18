@@ -21,8 +21,8 @@ app.use(cors({
     exposeHeaders: ["WWW-Authenticate", "Server-Authorization"],
     maxAge: 5,
     credentials: true,
-    allowMethods: ['GET', 'POST', 'DELETE'],
-    allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+    allowMethods: ['GET', 'post', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept', '*']
 }))
 //end of cors
 
@@ -54,11 +54,11 @@ const UsersCtl = require('./test/index')
 
 route.post('/phl', async (ctx) => {
   const request = ctx.request.body
-   let answer = request
+   let response = request
    for( var func in request ) {
      console.log(Array.isArray(request[func]))
       if(!Array.isArray(request[func])){
-        answer[func] =  await UsersCtl[func](request[func])
+        response[func] =  await UsersCtl[func](request[func])
       } else{
           const arrTemp = []
           for(var args in request[func]){
@@ -67,7 +67,7 @@ route.post('/phl', async (ctx) => {
             const user =  await UsersCtl[func](request[func][args])
             arrTemp.push(user)
           }
-        answer[func] = arrTemp  
+        response[func] = arrTemp  
       }
    
   
@@ -75,7 +75,7 @@ route.post('/phl', async (ctx) => {
   //   console.log(typeof(request[key]));
     
     
-    ctx.body = answer
+    ctx.body = response[func]
    }
 })
 

@@ -6,7 +6,7 @@ const userSchema = new Schema({
     __v: { type: String , select: false },
     username: { type: String, required: true },
     password: { type: String, required: true },
-    email: { type: String, required: true, select: false },
+    email: { type: String, required: false, select: false },
     following: { 
         type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
         // select: false
