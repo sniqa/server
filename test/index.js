@@ -7,7 +7,7 @@ const {
 } = require('./DB_login_cfg')
 
 class UsersCtl {
-  async findUserList(obj) {
+  async findUserList (obj) {
 
     // const { per_page = 10 } = ctx.query
     // const page = Math.max(ctx.query.page * 1) - 1
@@ -16,16 +16,16 @@ class UsersCtl {
 
   }
 
-  async findUser(obj) {
+  async findUser (obj) {
     const user = await User.findOne(obj)
     if (!user) {
-      return 'no user'
+      return false
     }
     return user
 
   }
 
-  async createUser(obj) {
+  async createUser (obj) {
 
     const {
       username
@@ -40,7 +40,7 @@ class UsersCtl {
     return newUser
   }
 
-  async login(obj) {
+  async login (obj) {
 
     const user = await User.findOne(obj)
     if (!user) {
@@ -63,7 +63,7 @@ class UsersCtl {
     }
   }
 
-  async update(obj) {
+  async update (obj) {
     let decode
     const {
       token,
