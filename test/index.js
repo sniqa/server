@@ -1,5 +1,6 @@
 const User = require('./mongoSchema')
-
+const path = require('path')
+const fs = require('fs')
 const jsonwebtoken = require('jsonwebtoken')
 
 const {
@@ -7,7 +8,7 @@ const {
 } = require('./DB_login_cfg')
 
 class UsersCtl {
-  async findUserList(obj) {
+  async findUserList (obj) {
 
     // const { per_page = 10 } = ctx.query
     // const page = Math.max(ctx.query.page * 1) - 1
@@ -16,7 +17,7 @@ class UsersCtl {
 
   }
 
-  async findUser(obj) {
+  async findUser (obj) {
     const user = await User.findOne(obj)
     if (!user) {
       return false
@@ -25,9 +26,23 @@ class UsersCtl {
 
   }
 
+  async upload (obj) {
 
+    const { file, filename } = obj;
 
-  async login(obj) {
+    // // 创建可读流
+    const reader = fs.createReadStream(file);
+    reader.setEncoding('UTF8');
+    let filePath = path.join(__dirname, '../public/') + filename;
+    // 创建可写流
+    const upStream = fs.createWriteStream(filePath);
+    // 可读流通过管道写入可写流
+    reader.pipe(upStream);
+    return ctx.body = "上传成功！";
+
+  }
+
+  async login (obj) {
 
     const user = await User.findOne(obj)
     if (!user) {
@@ -50,7 +65,7 @@ class UsersCtl {
     }
   }
 
-  async createUser(obj) {
+  async createUser (obj) {
 
     const {
       username
@@ -78,7 +93,7 @@ class UsersCtl {
     }
   }
 
-  async update(obj) {
+  async update (obj) {
     let decode
     const {
       token,

@@ -1,5 +1,5 @@
 const Koa = require('koa')
-
+const koaBody = require('koa-body')
 const path = require('path')
 const cors = require('koa2-cors')
 const Mongoose = require('mongoose')
@@ -33,7 +33,7 @@ app.use(cors({
 }))
 //end of cors
 
-
+app.use(koaBody())
 
 
 /**********  使用路由 ********/
@@ -41,23 +41,21 @@ const route = new Router()
 app.use(route.routes()).use(route.allowedMethods())
 
 //连接MongoDB
-const {
-  mongodbStr
-} = require('./schema/user/DB_login_cfg')
-Mongoose.connect(mongodbStr, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}, () => {
-  console.log('MongoDB connect successful')
-})
-Mongoose.connection.on('error', console.error)
+// const {
+//   mongodbStr
+// } = require('./schema/user/DB_login_cfg')
+// Mongoose.connect(mongodbStr, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// }, () => {
+//   console.log('MongoDB connect successful')
+// })
+// Mongoose.connection.on('error', console.error)
 //end of MongoDB
 
 
 
-route.post('/upload', async (ctx) => {
-  console.log(ctx.req.files)
-})
+
 
 
 
@@ -66,7 +64,7 @@ route.get('/', async (ctx) => {
 })
 
 
-/*************** ipl ************/
+/*************** phl ************/
 const UsersCtl = require('./test/index')
 
 route.post('/phl', async (ctx) => {
