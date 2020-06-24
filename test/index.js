@@ -30,15 +30,23 @@ class UsersCtl {
 
     const { file, filename } = obj;
 
+
+
     // // 创建可读流
-    const reader = fs.createReadStream(file);
-    reader.setEncoding('UTF8');
+    // const reader = fs.createReadStream(file);
     let filePath = path.join(__dirname, '../public/') + filename;
+    var dataBuffer = new Buffer(file, 'base64')
     // 创建可写流
-    const upStream = fs.createWriteStream(filePath);
+    // const upStream = fs.createWriteStream(filePath);
+    fs.writeFile(filePath, dataBuffer, (error) => {
+      if (error) {
+        console.log('写入失败')
+      } else {
+        console.log('写入成功了')
+      }
+    })
     // 可读流通过管道写入可写流
-    reader.pipe(upStream);
-    return ctx.body = "上传成功！";
+    return "上传成功！"
 
   }
 
