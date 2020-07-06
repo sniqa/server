@@ -27,7 +27,9 @@ app.use(cors({
 }))
 //end of cors
 
-app.use(koaBody({ multipart: true }));
+app.use(koaBody({
+  multipart: true
+}));
 
 //koa-router
 const router = new Router()
@@ -38,14 +40,15 @@ app.use(router.allowedMethods())
 //控制器路由
 const ctl = require('./controller/index')
 
-router.post('/ipl', async (ctx) => {
+router.post('/phl', async (ctx) => {
   const request = ctx.request.body
-  let response = request
+  let response
   console.log(request);
   for (var func in request) {
     // console.log(Array.isArray(request[func]))
+    // const arrTemp = {}
     if (!Array.isArray(request[func])) {
-      response[func] = await ctl[func](request[func])
+      response = await ctl[func](request[func])
     } else {
       const arrTemp = []
       for (var args in request[func]) {
@@ -53,7 +56,7 @@ router.post('/ipl', async (ctx) => {
         const reslut = await ctl[func](request[func][args])
         arrTemp.push(reslut)
       }
-      response[func] = arrTemp
+      response = arrTemp
     }
   }
   ctx.body = response
@@ -76,6 +79,6 @@ Mongoose.connection.on('error', console.error)
 
 
 //监听端口
-app.listen(9000, () => {
-  console.log('run at http://localhost:9000');
+app.listen(8000, () => {
+  console.log('run at http://localhost:8000');
 });
