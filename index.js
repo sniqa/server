@@ -41,7 +41,7 @@ const ctl = require('./controller/index')
 router.post('/ipl', async (ctx) => {
   const request = ctx.request.body
   let response = request
-  // console.log(request);
+  console.log(request);
   for (var func in request) {
     // console.log(Array.isArray(request[func]))
     if (!Array.isArray(request[func])) {
