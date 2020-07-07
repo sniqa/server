@@ -1,0 +1,31 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "codemirror": "^5.55.0",
+    "core-js": "^3.6.5",
+    "css-loader": "^3.6.0",
+    "jsonlint": "^1.6.3",
+    "material-design-icons": "^3.0.1",
+    "script-loader": "^0.7.2",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.3"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-service": "~4.4.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
